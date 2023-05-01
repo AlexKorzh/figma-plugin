@@ -1,5 +1,15 @@
 figma.showUI(__html__);
 
+const convertRadiusToCssObj = (node: any) => {
+  return {
+    borderRadius: node.cornerRadius,
+    borderTopLeftRadius: node.topLeftRadius,
+    borderTopRightRadius: node.topRightRadius,
+    borderBottomLeftRadius: node.bottomLeftRadius,
+    borderBottomRightRadius: node.bottomRightRadius
+  };
+};
+
 const getNodeProps = (node: any) => {
   const color = node.fills[0].color;
 
@@ -9,7 +19,8 @@ const getNodeProps = (node: any) => {
     y: node.y,
     width: node.width,
     height: node.height,
-    color
+    color,
+    ...convertRadiusToCssObj(node)
   };
 };
 

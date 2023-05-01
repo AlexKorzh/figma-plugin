@@ -1,0 +1,42 @@
+<h2>Just hit the Realtime Button</h2>
+<button id="run">Run Realtime</button>
+<button id="cancel">Cancel Me :(</button>
+<script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
+
+<script>
+  document.getElementById('run').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'run-real-time' } }, '*');
+  }
+
+  document.getElementById('cancel').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+  }
+</script>
+<script>
+  // Create a socket.io client instance and connect to the server
+  const socket = io('http://localhost:3000');
+  
+  socket.on('connect', () => {
+    console.log('Socket.IO connection opened');
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Socket.IO connection closed');
+  });
+
+  onmessage = (event) => {
+    const { type, props } = event.data.pluginMessage;
+
+    if (type === 'onCreateNode') {
+      socket.emit('figma-createNode', props);
+    }
+
+    if (type === 'onPropertyChange') {
+      socket.emit('figma-propertyChange', props);
+    }
+
+    if (type === 'onDeleteNode') {
+      socket.emit('figma-deleteNode', props);
+    }
+  }
+</script>

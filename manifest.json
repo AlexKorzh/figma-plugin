@@ -1,0 +1,12 @@
+{
+  "name": "realtime-plugin",
+  "id": "1234570506202603358",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma"
+  ],
+  "ui": "ui.html"
+}
